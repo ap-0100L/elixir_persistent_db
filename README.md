@@ -31,8 +31,3 @@ Use it as module, run as node!
     show_sensitive_data_on_connection_error: get_env!(get_env_name!("POSTGRESQL_SHOW_SENSITIVE_DATA"), :boolean, false)
 ```
 
-
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at <https://hexdocs.pm/persistent_db>.
-
