@@ -4,16 +4,7 @@
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `persistent_db` to your list of dependencies in `mix.exs`:
-
-```elixir
-def deps do
-  [
-    {:persistent_db, "~> 0.1.0"}
-  ]
-end
-```
+Use it as module, run as node!
 
 ### Config
 #### Runtime config
