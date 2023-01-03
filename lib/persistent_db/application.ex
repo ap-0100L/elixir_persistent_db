@@ -39,15 +39,14 @@ defmodule PersistentDb.Application do
   # get_children!
   """
   defp get_children! do
-
     {:ok, topologies} = get_topologies()
 
-    #conf = Application.get_env(:persistent_db, PersistentRepo)
-    #repo = Supervisor.child_spec({PersistentRepo, conf}, id: :argdfvsergwerg)
+    # conf = Application.get_env(:persistent_db, PersistentRepo)
+    # repo = Supervisor.child_spec({PersistentRepo, conf}, id: :argdfvsergwerg)
 
     result = [
       PersistentRepo,
-      #repo,
+      # repo,
       {PersistentDbWorker, []},
       {Cluster.Supervisor, [topologies, [name: PersistentDb.ClusterSupervisor]]}
     ]
