@@ -54,16 +54,6 @@ defmodule PersistentDb do
             reason: result
           )
         end
-
-        # {:ok, throw_if_connect_to_node_fail} = Utils.get_app_env!(:throw_if_connect_to_node_fail)
-        # raise_if_empty!(throw_if_connect_to_node_fail, :boolean)
-
-        # Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] I will try to connect ot email sender nodes")
-        # {:ok, email_sender_nodes} = Utils.get_app_env!(:email_sender_nodes)
-        # raise_if_empty!(email_sender_nodes, :list)
-
-        # {:ok, email_sender_nodes} = Utils.list_of_strings_to_list_of!(email_sender_nodes)
-        # Utils.connect_to_nodes!(email_sender_nodes, throw_if_connect_to_node_fail)
       )
     )
 
@@ -95,7 +85,7 @@ defmodule PersistentDb do
 
   ## Examples
 
-      iex> Transport.ping()
+      iex> PersistentDb.ping()
       :pong
 
   """
