@@ -39,7 +39,7 @@ defmodule PersistentDb do
 
         Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] I will try set cookie")
 
-        {:ok, cookie} = get_app_env!(:cookie)
+        {:ok, cookie} = get_app_env(:cookie)
         raise_if_empty!(cookie, :atom, "Wrong cookie value")
         Node.set_cookie(Node.self(), cookie)
 
