@@ -10,6 +10,9 @@ defmodule PersistentDb.Application do
   alias PersistentDb, as: PersistentDbWorker
   alias ApiCore.Db.Persistent.Repo, as: PersistentRepo
 
+  @supervisor_name PersistentDb.Supervisor
+  @cluster_supervisor_name PersistentDb.ClusterSupervisor
+
   ##############################################################################
   @doc """
   # get_topologies.
@@ -28,7 +31,7 @@ defmodule PersistentDb.Application do
   defp get_opts do
     result = [
       strategy: :one_for_one,
-      name: PersistentDb.Supervisor
+      name: @supervisor_name
     ]
 
     {:ok, result}
@@ -48,7 +51,7 @@ defmodule PersistentDb.Application do
       PersistentRepo,
       # repo,
       {PersistentDbWorker, []},
-      {Cluster.Supervisor, [topologies, [name: PersistentDb.ClusterSupervisor]]}
+      {Cluster.Supervisor, [topologies, [name: @cluster_supervisor_name]]}
     ]
 
     {:ok, result}
