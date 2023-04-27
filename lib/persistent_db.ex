@@ -83,7 +83,7 @@ defmodule PersistentDb do
   @doc """
   ping.
 
-  ## Examples
+  #### Examples
 
       iex> PersistentDb.ping()
       :pong
