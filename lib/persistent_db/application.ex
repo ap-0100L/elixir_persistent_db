@@ -8,7 +8,8 @@ defmodule PersistentDb.Application do
   use Utils
 
   alias PersistentDb, as: PersistentDbWorker
-  alias ApiCore.Db.Persistent.Repo, as: PersistentRepo
+  alias ApiCore.Db.Persistent.RepoRo, as: PersistentRepoRo
+  alias ApiCore.Db.Persistent.RepoRw, as: PersistentRepoRw
 
   @supervisor_name PersistentDb.Supervisor
   @cluster_supervisor_name PersistentDb.ClusterSupervisor
@@ -44,12 +45,9 @@ defmodule PersistentDb.Application do
   defp get_children! do
     {:ok, topologies} = get_topologies()
 
-    # conf = Application.get_env(:persistent_db, PersistentRepo)
-    # repo = Supervisor.child_spec({PersistentRepo, conf}, id: :argdfvsergwerg)
-
     result = [
-      PersistentRepo,
-      # repo,
+      PersistentRepoRo,
+      PersistentRepoRw,
       {PersistentDbWorker, []},
       {Cluster.Supervisor, [topologies, [name: @cluster_supervisor_name]]}
     ]
