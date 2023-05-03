@@ -6,16 +6,14 @@ defmodule PersistentDb do
   use GenServer
   use Utils
 
-  alias __MODULE__, as: SelfModule
-
   ##############################################################################
   @doc """
   Supervisor's child specification
   """
   def child_spec(opts) do
     %{
-      id: SelfModule,
-      start: {SelfModule, :start_link, [opts]}
+      id: __MODULE__,
+      start: {__MODULE__, :start_link, [opts]}
     }
   end
 
@@ -24,7 +22,7 @@ defmodule PersistentDb do
   ## Function
   """
   def start_link(opts \\ []) do
-    GenServer.start_link(SelfModule, %{}, opts)
+    GenServer.start_link(__MODULE__, %{}, opts)
   end
 
   ##############################################################################
@@ -37,13 +35,13 @@ defmodule PersistentDb do
       (
         Utils.ensure_all_started!([:inets, :ssl])
 
-        Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] I will try set cookie")
+        Logger.info("[#{inspect(__MODULE__)}][#{inspect(__ENV__.function)}] I will try set cookie")
 
         {:ok, cookie} = get_app_env(:cookie)
         raise_if_empty!(cookie, :atom, "Wrong cookie value")
         Node.set_cookie(Node.self(), cookie)
 
-        Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] I will try to enable notification monitor on node connection events")
+        Logger.info("[#{inspect(__MODULE__)}][#{inspect(__ENV__.function)}] I will try to enable notification monitor on node connection events")
 
         result = :net_kernel.monitor_nodes(true)
 
@@ -57,7 +55,7 @@ defmodule PersistentDb do
       )
     )
 
-    Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] I completed init part")
+    Logger.info("[#{inspect(__MODULE__)}][#{inspect(__ENV__.function)}] I completed init part")
     {:ok, state}
   end
 
@@ -67,14 +65,14 @@ defmodule PersistentDb do
   """
   @impl true
   def handle_info({:nodeup, node}, state) do
-    Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] Node #{inspect(node)} connected")
+    Logger.info("[#{inspect(__MODULE__)}][#{inspect(__ENV__.function)}] Node #{inspect(node)} connected")
 
     {:noreply, state}
   end
 
   @impl true
   def handle_info({:nodedown, node}, state) do
-    Logger.info("[#{inspect(SelfModule)}][#{inspect(__ENV__.function)}] Node #{inspect(node)} disconnected")
+    Logger.info("[#{inspect(__MODULE__)}][#{inspect(__ENV__.function)}] Node #{inspect(node)} disconnected")
 
     {:noreply, state}
   end
