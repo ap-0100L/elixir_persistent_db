@@ -17,7 +17,7 @@ Use it as module, run as node!
     port: get_env("POSTGRESQL_DB_PORT", :integer, 5432),
     database: get_env("POSTGRESQL_DB_NAME", :string),
     username: get_env("POSTGRESQL_DB_USER_NAME", :string),
-    password: get_env("POSTGRESQL_DB_PASSWORD_NAME", :string),
+    password: get_env("POSTGRESQL_DB_PASSWORD", :string),
     after_connect: {
       ApiCore.Db.Persistent.Repo,
       :set_search_path,
