@@ -47,7 +47,7 @@ defmodule PersistentDb do
 
         if :ok != result do
           UniError.raise_error!(
-            :CODE_CAN_NOT_ENABLE_MONITOR_ERROR,
+            :CAN_NOT_ENABLE_MONITOR_ERROR,
             ["Can not enable notification monitor on node connection events"],
             reason: result
           )
